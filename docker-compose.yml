@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   mysql_master:
 #    image: mysql:5.7
@@ -29,6 +30,19 @@ services:
       - ./slave/data:/var/lib/mysql
     networks:
       - overlay
+
+  spring-boot-jpa-docker-webapp:
+     image: rozproszone/gs-rest-service
+     depends_on:
+      - mysql_master
+     ports:
+      - 8080:8080
+     environment:
+      - DATABASE_HOST=mysql_master
+      - DATABASE_USER=mydb_master_user
+      - DATABASE_PASSWORD=111
+      - DATABASE_NAME=mysql_master
+      - DATABASE_PORT=4406
 
 networks:
   overlay:

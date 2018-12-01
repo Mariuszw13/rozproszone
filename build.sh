@@ -1,6 +1,8 @@
 #!/bin/bash
 
 docker-compose down
+docker rm mysql_master
+docker rm mysql_slave
 rm -rf ./master/data/*
 rm -rf ./slave/data/*
 docker-compose build
