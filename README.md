@@ -20,10 +20,10 @@ and after starting setup replication. See commands inside ./build.sh.
 docker exec mysql_master sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'create table code(code int); insert into code values (100), (200)'"
 ```
 
-#### Read changes from slave
+#### Read changes from slave_1
 
 ```
-docker exec mysql_slave sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'select * from code \G'"
+docker exec mysql_slave_1 sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'select * from code \G'"
 ```
 
 ## Troubleshooting
@@ -57,10 +57,10 @@ rm -rf ./slave/data/*
 docker exec mysql_master sh -c 'mysql -u root -p111 -e "SHOW MASTER STATUS \G"'
 ```
 
-#### Run command inside "mysql_slave"
+#### Run command inside "mysql_slave_1"
 
 ```
-docker exec mysql_slave sh -c 'mysql -u root -p111 -e "SHOW SLAVE STATUS \G"'
+docker exec mysql_slave_1 sh -c 'mysql -u root -p111 -e "SHOW SLAVE STATUS \G"'
 ```
 
 #### Enter into "mysql_master"
@@ -69,8 +69,8 @@ docker exec mysql_slave sh -c 'mysql -u root -p111 -e "SHOW SLAVE STATUS \G"'
 docker exec -it mysql_master bash
 ```
 
-#### Enter into "mysql_slave"
+#### Enter into "mysql_slave_1"
 
 ```
-docker exec -it mysql_slave bash
+docker exec -it mysql_slave_1 bash
 ```

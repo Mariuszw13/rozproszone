@@ -1,0 +1,80 @@
+Create and insert:
+
+docker exec mysql_master sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'create table code(code int); insert into code values (100), (200)'"
+
+Select * from master:
+
+docker exec mysql_master sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'select * from code \G'"
+
+*************************** 1. row ***************************
+code: 100
+*************************** 2. row ***************************
+code: 200
+
+Select * from slave:
+
+docker exec mysql_slave sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'select * from code \G'"
+
+*************************** 1. row ***************************
+code: 100
+*************************** 2. row ***************************
+code: 200
+
+Delete code 100 form master:
+
+docker exec mysql_master sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'delete from code where code=100 \G'"
+
+Select * from master:
+
+docker exec mysql_master sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'select * from code \G'"
+
+*************************** 1. row ***************************
+code: 200
+
+Select * from slave:
+
+docker exec mysql_slave sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'select * from code \G'"
+
+*************************** 1. row ***************************
+code: 200
+
+Shut down slave:
+
+docker stop mysql_slave
+
+docker ps -a
+
+STATUS                      NAMES
+Up 10 minutes               mysql_master
+Exited (0) 3 seconds ago    mysql_slave
+
+Add code 100 to master:
+
+docker exec mysql_master sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'insert into code (code) values 100 \G'"
+
+Select * from master:
+
+docker exec mysql_master sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'select * from code \G'"
+
+*************************** 1. row ***************************
+code: 200
+*************************** 2. row ***************************
+code: 100
+
+Restart slave:
+
+docker restart mysql_slave
+
+docker ps -a
+STATUS                      PORTS                                         NAMES
+Up 16 minutes               mysql_master
+Up 2 seconds                mysql_slave
+
+Select * from slave:
+
+docker exec mysql_slave sh -c "export MYSQL_PWD=111; mysql -u root mydb -e 'select * from code \G'"
+
+*************************** 1. row ***************************
+code: 200
+*************************** 2. row ***************************
+code: 100

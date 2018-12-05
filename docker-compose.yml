@@ -1,8 +1,7 @@
 version: '3'
-
 services:
   mysql_master:
-#    image: mysql:5.7
+    image: mysql:5.7
     build:
       context: ./master
     env_file:
@@ -17,32 +16,33 @@ services:
     networks:
       - overlay
 
-  mysql_slave:
+  mysql_slave_1:
     image: mysql:5.7
     env_file:
-      - ./slave/mysql_slave.env
-    container_name: "mysql_slave"
+      - ./slave_1/mysql_slave.env
+    container_name: "mysql_slave_1"
     restart: "no"
     ports:
       - 5506:5506
     volumes:
-      - ./slave/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
-      - ./slave/data:/var/lib/mysql
+      - ./slave_1/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./slave_1/data:/var/lib/mysql
     networks:
       - overlay
 
-  spring-boot-jpa-docker-webapp:
-     image: rozproszone/gs-rest-service
-     depends_on:
-      - mysql_master
-     ports:
-      - 8080:8080
-     environment:
-      - DATABASE_HOST=mysql_master
-      - DATABASE_USER=mydb_master_user
-      - DATABASE_PASSWORD=111
-      - DATABASE_NAME=mysql_master
-      - DATABASE_PORT=4406
+  mysql_slave_2:
+    image: mysql:5.7
+    env_file:
+      - ./slave_2/mysql_slave.env
+    container_name: "mysql_slave_2"
+    restart: "no"
+    ports:
+      - 5507:5506
+    volumes:
+      - ./slave_2/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
+      - ./slave_2/data:/var/lib/mysql
+    networks:
+      - overlay
 
 networks:
   overlay:
