@@ -10,6 +10,7 @@ services:
     restart: "no"
     ports:
       - 4406:4406
+      - 3306:3306
     volumes:
       - ./master/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
       - ./master/data:/var/lib/mysql
@@ -37,7 +38,7 @@ services:
     container_name: "mysql_slave_2"
     restart: "no"
     ports:
-      - 5507:5506
+      - 5516:5516
     volumes:
       - ./slave_2/conf/mysql.conf.cnf:/etc/mysql/conf.d/mysql.conf.cnf
       - ./slave_2/data:/var/lib/mysql
@@ -46,4 +47,5 @@ services:
 
 networks:
   overlay:
+      driver: bridge
 
