@@ -13,7 +13,6 @@ public class CarController {
     @Autowired
     private CarRepository carRepository;
 
-
     @RequestMapping("/")
     public String home() {
         return "Hello Docker World";
