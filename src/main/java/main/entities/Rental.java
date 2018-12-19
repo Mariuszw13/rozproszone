@@ -2,6 +2,7 @@ package main.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,6 +11,7 @@ import java.util.Date;
 @Entity
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class Rental {
 
     @Id
@@ -17,13 +19,13 @@ public class Rental {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "client_id", table = "user")
+    @JoinColumn(name = "client_id")
     private User client;
 
-    @Column(name = "date_from")
+    @Column(name = "date_start")
     private Date startDate;
 
-    @Column(name = "date_to")
+    @Column(name = "date_end")
     private Date endDate;
 
     @ManyToOne

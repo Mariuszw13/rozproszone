@@ -32,4 +32,44 @@ CREATE TABLE user
 );
 CREATE UNIQUE INDEX user_id_uindex ON user (id);
 
+CREATE TABLE rental
+(
+    id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    client_id int NOT NULL,
+    date_start date NOT NULL,
+    date_end date NOT NULL,
+    car_id int NOT NULL,
+    CONSTRAINT rental_user_fk FOREIGN KEY (client_id) REFERENCES user (id),
+    CONSTRAINT rental_car_fk FOREIGN KEY (car_id) REFERENCES car (id)
+);
+CREATE UNIQUE INDEX rental_id_uindex ON rental (id);
+
+/
+----------------------------------------------------------------------------
+/
+insert into car(id, make, model, rent_cost, rent_flag)
+values (1, 'BMW', 'E36', 20.5, 0);
+/
+select * from car;
+/
+insert into user_type(id, name)
+VALUES (1, 'client');
+/
+insert into user(name, surname, email, password, user_type_id)
+values ('John', 'Doe', 'jdoe@email.com', 'abcd', 1);
+/
+insert into user(name, surname, email, password, user_type_id)
+values ('Rick', 'Sanchez', 'rsanchez@email.com', 'bcda', 1);
+/
+select * from user;
+
+/
+insert into rental(client_id, date_start, date_end, car_id)
+VALUES (2, '20190101', '20190120', 1)
+
+/
+
+select * from rental;
+
+
 

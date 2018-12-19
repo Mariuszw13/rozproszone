@@ -1,9 +1,9 @@
 #!/bin/bash
 
 docker-compose down
-rm -rf ./master/data/*
-rm -rf ./slave_1/data/*
-rm -rf ./slave_2/data/*
+#rm -rf ./master/data/*
+#rm -rf ./slave_1/data/*
+#rm -rf ./slave_2/data/*
 docker-compose build
 docker-compose up -d
 
