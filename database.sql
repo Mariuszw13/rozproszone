@@ -55,6 +55,9 @@ select * from car;
 insert into user_type(id, name)
 VALUES (1, 'client');
 /
+insert into user_type(id, name)
+VALUES (2, 'employee');
+/
 insert into user(name, surname, email, password, user_type_id)
 values ('John', 'Doe', 'jdoe@email.com', 'abcd', 1);
 /

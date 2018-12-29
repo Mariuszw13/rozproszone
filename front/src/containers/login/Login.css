@@ -1,0 +1,13 @@
+.LoginScreen {
+    width: 50%;
+    height: 300px;
+    text-align: center;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    margin: auto;
+    padding: 16px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0; left: 0; bottom: 250px; right: 0;
+    overflow: auto;
+}
