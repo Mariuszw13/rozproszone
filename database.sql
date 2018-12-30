@@ -26,7 +26,7 @@ CREATE TABLE user
     surname varchar(45) NOT NULL,
     address varchar(100),
     email varchar(45) NOT NULL,
-    password varchar(45) NOT NULL,
+    password varchar(100) NOT NULL,
     user_type_id int NOT NULL,
     CONSTRAINT user_type_fk FOREIGN KEY (user_type_id) REFERENCES user_type (id)
 );
@@ -59,10 +59,12 @@ insert into user_type(id, name)
 VALUES (2, 'employee');
 /
 insert into user(name, surname, email, password, user_type_id)
-values ('John', 'Doe', 'jdoe@email.com', 'abcd', 1);
+values ('John', 'Doe', 'jdoe@email.com', '$2a$10$a0iIJOneZKOkrrFl6bOWBuB8T5vNi6nniUNdCdlByc3rwkYBCKn6y', 1);
 /
 insert into user(name, surname, email, password, user_type_id)
-values ('Rick', 'Sanchez', 'rsanchez@email.com', 'bcda', 1);
+values ('Rick', 'Sanchez', 'rsanchez@email.com', '$2a$10$a0iIJOneZKOkrrFl6bOWBuB8T5vNi6nniUNdCdlByc3rwkYBCKn6y', 1);
+/
+select * from user;
 /
 select * from user;
 
