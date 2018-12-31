@@ -3,13 +3,13 @@ import TextField from "@material-ui/core/TextField/TextField";
 import React, { Component } from "react";
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { setCurrentUser, setCurrentUserId} from "../../store/actions/users";
+import { setCurrentUser, setCurrentUserId} from "../../store/actions/index";
 import './Login.css'
 
 class Login extends Component {
     state = {
-        login: 'emp1',
-        password: 'emp1pass',
+        email: 'jdoe@email.com',
+        password: 'abcd',
         message: null
 
     };
@@ -21,13 +21,14 @@ class Login extends Component {
     getUserId = (loginResponse) => {
         axios.get('http://localhost:8080/users/login='+loginResponse.username, {headers: {'Authentication': loginResponse.jws}})
             .then(response => {
-                if (loginResponse.roles[0].authority==="ROLE_EMPLOYEE") {
+                if (loginResponse.roles[0].authority==="client") {
+                    console.log('success');
                     //console.log(response.data.employee);
-                    this.props.setCurrUserId(response.data.employee.id);
-                    this.moveToAnotherPage("/cars");
-                } else if (loginResponse.roles[0].authority==="ROLE_MANAGER") {
-                    this.props.setCurrUserId(response.data.manager.id);
-                    this.moveToAnotherPage("/cars");
+                    //this.props.setCurrUserId(response.data.employee.id);
+                    //this.moveToAnotherPage("/cars");
+                } else if (loginResponse.roles[0].authority==="employee") {
+                    //this.props.setCurrUserId(response.data.manager.id);
+                    //this.moveToAnotherPage("/cars");
                 }
 
             })
@@ -35,17 +36,24 @@ class Login extends Component {
     }
 
     loginHandler = () => {
-
-        axios.post('http://localhost:8080/authenticateUser?username='+this.state.login+'&password='+this.state.password)
+        const address = 'http://localhost:8080/authenticateUser?username='+this.state.email+'&password='+this.state.password;
+        console.log(address);
+        axios.post(address)
             .then(response => {
-                if (response.status===200) {
-                    console.log(response);
-                    this.props.onLoginSuccess(response.data);
-                    this.getUserId(response.data);
+                if (response.status===200 && response.data.hasOwnProperty('jws')) {
+                    const currentUser = {
+                        email: response.data.username,
+                        token: response.data.jws,
+                        role: response.data.roles[0].authority
+                    };
+                    this.props.onLoginSuccess(currentUser);
+                    this.moveToAnotherPage("/cars");
+
+                    //this.getUserId(response.data);
                 }
             })
             .catch(error => {
-                const failMessage = <p style={{color: 'red'}}>Niepoprawny login lub hasło</p>
+                const failMessage = <p style={{color: 'red'}}>Niepoprawny email lub hasło</p>
                 this.setState({message: failMessage});
                 console.log(error);
             });
@@ -53,13 +61,13 @@ class Login extends Component {
 
     }
 
-    /* logoutHandler = () => {
+    logoutHandler = () => {
         axios.post('http://localhost:8080/logout', null, {headers: {'Authentication': this.props.currUser.jws}})
             .then(response => console.log(response))
             .catch(error => console.log(error));
 
         this.props.onLogout();
-    } */
+    }
 
 
     render() {
@@ -68,22 +76,22 @@ class Login extends Component {
                 <div>
                     <TextField label="Email"
                                margin="normal"
-                               onChange={(event, newValue) => this.setState({login: newValue})}/>
+                               onChange={(event) => this.setState({email: event.target.value})}/>
                 </div>
                 <div>
                     <TextField label="Hasło"
                                margin="normal"
-                               onChange={(event, newValue) => this.setState({password: newValue})}
+                               onChange={(event) => this.setState({password: event.target.value})}
                                type="password"/>
                 </div>
-                <Button primary color="primary" variant="contained" onClick={this.loginHandler}>Login</Button>
+                <Button color="primary" variant="contained" onClick={this.loginHandler}>Login</Button>
             </div>);
 
         if (this.props.currUser) {
             itemsToRender = (
                 <div>
-                    <p>{"Logged in as "+ this.props.currUser.username}</p>
-                    <Button label="Log out" primary color="primary" variant="contained" onClick={this.logoutHandler}/>
+                    <p>{"Zalogowany jako "+ this.props.currUser.email}</p>
+                    <Button color="primary" variant="contained" onClick={this.logoutHandler}>Wyloguj</Button>
                 </div>);
         }
 

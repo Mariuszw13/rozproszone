@@ -1,0 +1,8 @@
+.clientsList {
+    margin: 20px;
+    padding: 5px;
+    border: solid 2px #dbdbdb;
+    border-radius: 5px;
+    max-height: 80vh;
+    overflow: auto;
+}

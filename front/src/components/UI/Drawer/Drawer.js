@@ -16,8 +16,9 @@ const drawer = (props) => {
                 open={props.open}
                 onClose={props.onRequest}
             >
-                <MenuItem><a href="/">Lista leków</a></MenuItem>
-                <MenuItem><a href="/search">Wyszukaj lek</a></MenuItem>
+                <MenuItem><a href="/">Zaloguj/Wyloguj</a></MenuItem>
+                <MenuItem><a href="/cars">Samochody</a></MenuItem>
+                <MenuItem><a href="/rental">Rezerwacje</a></MenuItem>
             </Drawer>
         </div>
     );

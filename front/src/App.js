@@ -5,6 +5,8 @@ import Rental from './containers/rental/client/Rental';
 import Layout from './hoc/Layout/Layout'
 import Login from './containers/login/Login';
 import Account from './containers/account/Account'
+import Cars from './containers/cars/Cars';
+import withAuthentication from './hoc/Authentication/WithAuthentication';
 
 class App extends Component {
     state = {
@@ -23,16 +25,15 @@ class App extends Component {
 
         return (
             <BrowserRouter>
-                <div>
                     <Layout drawerHandler={this.toggleDrawerHandler}
                             closeDrawer={this.closeDrawerHandler}
                             drawerOpen={this.state.drawerOpen}
                     >
-                        <Route path="/" exact component={Rental}/>
-                        <Route path="/login" exact component={Login}/>
-                        <Route path="/account" exact component={Account}/>
+                        <Route path="/" exact component={Login}/>
+                        <Route path="/rental" exact component={withAuthentication(Rental)}/>
+                        <Route path="/account" exact component={withAuthentication(Account)}/>
+                        <Route path="/cars" exact component={withAuthentication(Cars)}/>
                     </Layout>
-                </div>
             </BrowserRouter>
         );
     }

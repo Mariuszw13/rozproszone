@@ -1,4 +1,5 @@
 import {SET_CURRENT_USER, SET_LOGIN_ERROR, SET_CURRENT_USER_ID} from './actionTypes';
+import {updateCars} from './index'
 import axios from "axios/index";
 
 export const doLogin = (username, password) => {
@@ -14,14 +15,18 @@ export const doLogin = (username, password) => {
             dispatch(setLoginError(true));
             console.log(error);
         });
+    }
+}
 
-
-
+export const clearStores = () => {
+    return dispatch => {
+        dispatch(updateCars([]));
     }
 }
 
 
 export const setCurrentUser = (currUser) => {
+    clearStores();
     return {
         type: SET_CURRENT_USER,
         user: currUser

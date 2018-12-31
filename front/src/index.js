@@ -4,18 +4,25 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import usersReducer from './store/reducers/users';
-import projectsReducer from './store/reducers/projects';
+import carsReducer from './store/reducers/cars';
 import thunk from 'redux-thunk';
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import Provider from "react-redux/es/components/Provider";
+import {loadState, saveState} from "./localStorage";
+
+const persistedState = loadState();
 
 const rootReducer = combineReducers({
-    projects: projectsReducer,
+    cars: carsReducer,
     users: usersReducer
 
 });
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, persistedState, applyMiddleware(thunk));
+
+store.subscribe(() => {
+    saveState(store.getState());
+})
 
 ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));
 

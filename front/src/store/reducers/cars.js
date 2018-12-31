@@ -1,21 +1,15 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-    projects: [],
-    tasks: []
+    cars: [],
 }
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case actionTypes.UPDATE_PROJECTS:
+        case actionTypes.UPDATE_CARS:
             return {
                 ...state,
-                projects: action.projects
-            };
-        case actionTypes.UPDATE_TASKS:
-            return {
-                ...state,
-                tasks: action.tasks
+                cars: action.cars
             };
         default:
             return state;

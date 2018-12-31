@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
-import Navigation from '../../components/Navigation/Navigation';
+import Navigation from '../../components/navigation/Navigation';
 import Drawer from '../../components/UI/Drawer/Drawer';
 
 const layout = (props) => {
