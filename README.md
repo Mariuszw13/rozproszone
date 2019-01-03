@@ -1,3 +1,16 @@
+This is university project for 'Distibuted databases' subject. The goal is to create 1 master database which replicates data to 2 slave databases, back-end application that manages dbs and simple front-end app where the basic CRUD operations can be executed.
+
+Databases were set up in docker, using code from https://github.com/vbabak/docker-mysql-master-slave
+Back-end: Spring
+Front-end: ReactJS
+
+## Running the project
+run ./build.sh
+execute sql queries on master database
+build spring app by running mvn clean install
+run spring app by executing java -jar target/app-name.jar
+run from front folder: yarn start or npm start
+
 Docker MySQL master-slave replication 
 ========================
 

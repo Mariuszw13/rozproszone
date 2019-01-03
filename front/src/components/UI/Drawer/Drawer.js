@@ -12,13 +12,14 @@ const drawer = (props) => {
         <div className="Drawer">
             <Drawer
                 docked={false}
-                width={400}
                 open={props.open}
                 onClose={props.onRequest}
             >
-                <MenuItem><a href="/">Zaloguj/Wyloguj</a></MenuItem>
-                <MenuItem><a href="/cars">Samochody</a></MenuItem>
-                <MenuItem><a href="/rental">Rezerwacje</a></MenuItem>
+                <div className="navigation-items">
+                    <MenuItem><a href="/">Zaloguj / Wyloguj</a></MenuItem>
+                    <MenuItem><a href="/cars">Samochody</a></MenuItem>
+                    <MenuItem><a href="/rental">Rezerwacje</a></MenuItem>
+                </div>
             </Drawer>
         </div>
     );

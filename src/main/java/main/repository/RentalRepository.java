@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface RentalRepository extends CrudRepository<Rental, Long> {
 
-    List<Rental> findAllByClientId(Long clientId);
+    List<Rental> findAllByClientEmail(String email);
 }

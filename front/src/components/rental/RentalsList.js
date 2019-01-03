@@ -4,22 +4,23 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction/L
 import Divider from "@material-ui/core/Divider/Divider";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import List from "@material-ui/core/List/List";
-import './CarsList.css'
 import Button from "@material-ui/core/Button/Button";
+import {calculateTotalCost, parseDate} from '../../utils/utils';
 
 
-const carsList = (props) => {
+const rentalsList = (props) => {
 
-    let carListItems;
-    if (props.cars) {
-        carListItems = props.cars.map(car => {
+    let rentalListItems;
+    if (props.rentals) {
+        rentalListItems = props.rentals.map(rental => {
             return (
-                <div key={car.id}>
+                <div key={rental.id}>
                     <ListItem button={true}>
-                        <ListItemText primary={car.make + ' ' + car.model} secondary={car.rentCost + " zł / 24 h"}/>
+                        <ListItemText primary={rental.car.make + ' ' + rental.car.model} secondary={'Od ' + parseDate(rental.startDate) + ' do ' + parseDate(rental.endDate)}/>
+                        <ListItemText primary={calculateTotalCost(rental.startDate, rental.endDate, rental.car.rentCost) + ' zł'}/>
                         <ListItemSecondaryAction>
                             <Button color="primary" variant="contained"
-                                    onClick={props.onButtonClickHandler}>{props.buttonLabel}</Button>
+                                    onClick={props.onButtonClickHandler}>Anuluj</Button>
                         </ListItemSecondaryAction>
                     </ListItem>
                     <Divider/>
@@ -30,10 +31,10 @@ const carsList = (props) => {
     return (
         <div className="clientsList">
             <List component="nav">
-                {carListItems}
+                {rentalListItems}
             </List>
         </div>
     )
 }
 
-export default carsList
+export default rentalsList

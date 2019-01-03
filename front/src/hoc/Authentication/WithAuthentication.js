@@ -29,7 +29,6 @@ const withAuthentication = (Component) => {
         }
     }
 
-    // @ts-ignore
     return withRouter(connect(mapStateToProps, mapDispatchToProps)(WithAuthentication));
 }
 

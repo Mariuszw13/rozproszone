@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Route } from 'react-router-dom';
-import Rental from './containers/rental/client/Rental';
+import Rental from './containers/rental/Rental';
 import Layout from './hoc/Layout/Layout'
 import Login from './containers/login/Login';
 import Account from './containers/account/Account'

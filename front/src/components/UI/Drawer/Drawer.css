@@ -1,9 +1,18 @@
-.Drawer a {
+.navigation-items {
+    width: 15vw;
+}
+
+.navigation-items a {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    padding: 12em;
+    margin: -12em;
     text-decoration: none;
     color: black;
 }
 
-.Drawer a:hover,
-.Drawer a:active {
+.navigation-items a:hover,
+.navigation-items a:active {
     color: #fa923f;
 }

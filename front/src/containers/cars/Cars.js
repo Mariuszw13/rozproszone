@@ -21,6 +21,7 @@ class Cars extends Component {
             buttonLabel = 'Wypożycz';
         }
         return (<div>
+                <h1 style={{margin: 20}}>Samochody</h1>
                 <CarsList cars={this.props.cars}
                           onButtonClickHandler={this.onListButtonClickHandler}
                           buttonLabel={buttonLabel}/>

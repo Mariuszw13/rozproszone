@@ -2,19 +2,38 @@ import {SET_CURRENT_USER, SET_LOGIN_ERROR, SET_CURRENT_USER_ID} from './actionTy
 import {updateCars} from './index'
 import axios from "axios/index";
 
-export const doLogin = (username, password) => {
+export const doLogin = (email, password, onLoginSuccess, onLoginFail) => {
     return dispatch => {
-        console.log('login: '+password+' passwd: '+password);
-
-        axios.post('http://localhost:8080/authenticateUser?username='+username+'&password='+password)
+        const address = 'http://localhost:8080/authenticateUser?username='+email+'&password='+password;
+        console.log(address);
+        axios.post(address)
             .then(response => {
-                if (response.status===200) {
-                    dispatch(setCurrentUser(response.data));
+                if (response.status===200 && response.data.hasOwnProperty('jws')) {
+                    const currentUser = {
+                        email: response.data.username,
+                        token: response.data.jws,
+                        role: response.data.roles[0].authority
+                    };
+                    dispatch(setCurrentUser(currentUser));
+                    onLoginSuccess('/cars');
+                } else {
+                    onLoginFail();
                 }
-            }).catch(error => {
-            dispatch(setLoginError(true));
-            console.log(error);
-        });
+            })
+            .catch(error => {
+                onLoginFail(error);
+            });
+    }
+}
+
+export const doLogout = (token) => {
+    return dispatch => {
+        axios.post('http://localhost:8080/logout', null, {headers: {'Authentication': token}})
+            .then(response => {
+                console.log(response)
+                dispatch(setCurrentUser(null));
+            })
+            .catch(error => console.log(error));
     }
 }
 

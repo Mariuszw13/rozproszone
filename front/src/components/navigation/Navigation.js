@@ -10,11 +10,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 const Navigation = (props) => {
 
-    const widthStyle = {
-        width: 200
-    };
-
-
     return (
         <div>
             <AppBar position="static">

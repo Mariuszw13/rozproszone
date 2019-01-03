@@ -16,9 +16,9 @@ public class RentalController {
     @GetMapping("/rentals")
     public Iterable<Rental> getAllRentals() { return rentalRepository.findAll(); }
 
-    @GetMapping("/rentals/client/{id}")
-    public Iterable<Rental> getRentalsByClientId(@PathVariable Long id) {
-        return rentalRepository.findAllByClientId(id);
+    @GetMapping("/rentals/client/{email}")
+    public Iterable<Rental> getRentalsByClientEmail(@PathVariable String email) {
+        return rentalRepository.findAllByClientEmail(email);
     }
 
     @PostMapping("/rentals")

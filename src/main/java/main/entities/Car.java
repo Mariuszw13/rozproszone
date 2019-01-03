@@ -22,8 +22,8 @@ public class Car {
     @Column(name = "MODEL", nullable = false, length = 45)
     private String model;
 
-    @Column(name = "RENT_COST", nullable = false, precision = 10)
-    private Integer rentCost;
+    @Column(name = "RENT_COST", nullable = false, precision = 10, scale = 10)
+    private Float rentCost;
 
     @Column(name = "RENT_FLAG", nullable = false, precision = 1)
     private Boolean rentFlag;

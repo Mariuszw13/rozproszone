@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import usersReducer from './store/reducers/users';
 import carsReducer from './store/reducers/cars';
+import rentalsReducer from './store/reducers/rentals';
 import thunk from 'redux-thunk';
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import Provider from "react-redux/es/components/Provider";
@@ -14,7 +15,8 @@ const persistedState = loadState();
 
 const rootReducer = combineReducers({
     cars: carsReducer,
-    users: usersReducer
+    users: usersReducer,
+    rentals: rentalsReducer
 
 });
 
