@@ -1,6 +1,6 @@
 import {SET_CURRENT_USER, SET_LOGIN_ERROR, SET_CURRENT_USER_ID} from './actionTypes';
-import {updateCars} from './index'
 import axios from "axios/index";
+import {clearStorage} from '../../localStorage'
 
 export const doLogin = (email, password, onLoginSuccess, onLoginFail) => {
     return dispatch => {
@@ -30,22 +30,25 @@ export const doLogout = (token) => {
     return dispatch => {
         axios.post('http://localhost:8080/logout', null, {headers: {'Authentication': token}})
             .then(response => {
-                console.log(response)
+                console.log(response);
                 dispatch(setCurrentUser(null));
+                clearStorage();
             })
             .catch(error => console.log(error));
     }
 }
 
-export const clearStores = () => {
+export const getUserIdByEmail = (email, token) => {
     return dispatch => {
-        dispatch(updateCars([]));
+        axios.get('http://localhost:8080/users/' + email, {headers: {'Authentication': token}})
+            .then(response => {
+                console.log(response)
+            })
     }
 }
 
 
 export const setCurrentUser = (currUser) => {
-    clearStores();
     return {
         type: SET_CURRENT_USER,
         user: currUser

@@ -4,23 +4,25 @@ import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction/L
 import Divider from "@material-ui/core/Divider/Divider";
 import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import List from "@material-ui/core/List/List";
+import './CarsList.css'
 import Button from "@material-ui/core/Button/Button";
-import {calculateTotalCost, parseDate} from '../../utils/utils';
 
 
-const rentalsList = (props) => {
+const carsList = (props) => {
 
-    let rentalListItems;
-    if (props.rentals) {
-        rentalListItems = props.rentals.map(rental => {
+    let carListItems;
+    if (props.cars) {
+        carListItems = props.cars.map(car => {
             return (
-                <div key={rental.id}>
+                <div key={car.id}>
                     <ListItem button={true}>
-                        <ListItemText primary={rental.car.make + ' ' + rental.car.model} secondary={'Od ' + parseDate(rental.startDate) + ' do ' + parseDate(rental.endDate)}/>
-                        <ListItemText primary={calculateTotalCost(rental.startDate, rental.endDate, rental.car.rentCost) + ' zł'}/>
+                        <ListItemText primary={car.make + ' ' + car.model} secondary={car.rentCost + " zł / 24 h"}/>
                         <ListItemSecondaryAction>
-                            <Button color="primary" variant="contained"
-                                    onClick={props.onButtonClickHandler}>Anuluj</Button>
+                            <Button
+                                disabled={car.rentFlag}
+                                color="primary" variant="contained"
+                                onClick={() => props.onButtonClickHandler(car.id)}>{props.buttonLabel}
+                            </Button>
                         </ListItemSecondaryAction>
                     </ListItem>
                     <Divider/>
@@ -31,10 +33,10 @@ const rentalsList = (props) => {
     return (
         <div className="clientsList">
             <List component="nav">
-                {rentalListItems}
+                {carListItems}
             </List>
         </div>
     )
 }
 
-export default rentalsList
+export default carsList

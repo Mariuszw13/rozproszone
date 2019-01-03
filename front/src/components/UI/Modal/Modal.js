@@ -1,35 +1,30 @@
 /**
  * Created by mariusz on 26.03.18.
  */
-import React, { Component } from 'react';
+import React from 'react';
 import './Modal.css';
 import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import Backdrop from '../Backdrop/Backdrop';
 
-class Modal extends Component {
+const modal = (props) => {
 
-    /*shouldComponentUpdate(nextProps, nextState) {
-        return nextProps.show !== this.props.show;
-    }*/
 
-    render() {
         let className = "Modal";
-        if (this.props.wide) {
+        if (props.wide) {
             className = "Modal-wide";
         }
             return (
                     <Aux>
-                        <Backdrop show={this.props.show} clicked={this.props.modalClosed}/>
+                        <Backdrop open={props.open} clicked={props.closeModalHandler}/>
                         <div
                             className={className}
-                            style={{transform: this.props.show ? 'translateY(0)' : 'translateY(-100vh)',
-                                    opacity: this.props.show ? '1' : '0'}}>
-                            {this.props.children}
+                            style={{transform: props.open ? 'translateY(0)' : 'translateY(-100vh)',
+                                    opacity: props.open ? '1' : '0'}}>
+                            {props.children}
                         </div>
                     </Aux>
                 );
-            }
 
 }
 
-export default Modal;
+export default modal;
