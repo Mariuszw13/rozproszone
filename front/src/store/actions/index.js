@@ -1,3 +1,3 @@
 export {getCars, updateCars, addCar} from './cars';
-export {doLogin, setCurrentUser, doLogout} from './users';
-export {getRentals} from './rentals';
+export {doLogin, setCurrentUser, doLogout, getUserIdByEmail} from './users';
+export {getRentals, addRental, cancelRental} from './rentals';

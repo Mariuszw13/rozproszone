@@ -20,7 +20,7 @@ const rentalsList = (props) => {
                         <ListItemText primary={calculateTotalCost(rental.startDate, rental.endDate, rental.car.rentCost) + ' zł'}/>
                         <ListItemSecondaryAction>
                             <Button color="primary" variant="contained"
-                                    onClick={props.onButtonClickHandler}>Anuluj</Button>
+                                    onClick={() => props.onButtonClickHandler(rental.id)}>Anuluj</Button>
                         </ListItemSecondaryAction>
                     </ListItem>
                     <Divider/>

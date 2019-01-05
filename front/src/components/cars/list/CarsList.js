@@ -21,7 +21,8 @@ const carsList = (props) => {
                             <Button
                                 disabled={car.rentFlag}
                                 color="primary" variant="contained"
-                                onClick={() => props.onButtonClickHandler(car.id)}>{props.buttonLabel}
+                                style={props.buttonVisible ? {} : {visibility: 'hidden'}}
+                                onClick={() => props.onButtonClickHandler(car)}>{props.buttonLabel}
                             </Button>
                         </ListItemSecondaryAction>
                     </ListItem>

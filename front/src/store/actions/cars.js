@@ -1,10 +1,12 @@
 import {UPDATE_CARS} from './actionTypes';
 import axios from 'axios';
+import {clearStorage} from '../../localStorage'
 
 export const getCars = (token) => {
     return dispatch => {
         axios.get('http://localhost:8080/car', {headers: {'Authentication': token}})
             .then(response => {
+                clearStorage();
                 dispatch(updateCars(response.data));
             })
             .catch(error => {

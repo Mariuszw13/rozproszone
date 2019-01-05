@@ -5,7 +5,6 @@ import {clearStorage} from '../../localStorage'
 export const doLogin = (email, password, onLoginSuccess, onLoginFail) => {
     return dispatch => {
         const address = 'http://localhost:8080/authenticateUser?username='+email+'&password='+password;
-        console.log(address);
         axios.post(address)
             .then(response => {
                 if (response.status===200 && response.data.hasOwnProperty('jws')) {

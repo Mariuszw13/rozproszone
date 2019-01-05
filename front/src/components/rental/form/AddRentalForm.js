@@ -1,27 +1,29 @@
 import React from 'react';
 import TextField from "@material-ui/core/TextField/TextField";
 import Button from "@material-ui/core/Button/Button";
-import './AddCarForm.css';
 
-const addCarForm = (props) => {
+const addRentalForm = (props) => {
     const buttonStyle = {marginRight: 10, marginTop: 20};
-    const textFieldStyle = {margin: 'auto'};
-    return (
-        <div className="add-car-form">
+    const textFieldStyle = {marginTop: 20};
+    if (props.car) {
+        return (
             <div>
-                <h2>Wypożycz samochód</h2>
-            </div>
-            <h3>
-                {props.carName}
-            </h3>
-                <TextField style={textFieldStyle} type="date" label="Data rozpoczęcia" required onChange={props.textFieldChangeHandler('startDate')}/>
-            <div>
-                <TextField style={textFieldStyle} type="date" label="Data końca" required onChange={props.textFieldChangeHandler('endDate')}/>
-            </div>
-            <h4>
-                {'Koszt' + props.cost}
-            </h4>
-            <span>
+                <div>
+                    <h2>Wypożycz samochód</h2>
+                </div>
+                <h3>
+                    {props.car.make + ' ' + props.car.model}
+                </h3>
+                <TextField style={textFieldStyle}  type="date" label="Data rozpoczęcia" required InputLabelProps={{shrink: true}}
+                           onChange={props.textFieldChangeHandler('rentalStart')}/>
+                <div>
+                    <TextField style={textFieldStyle} type="date" label="Data końca" required InputLabelProps={{shrink: true}}
+                               onChange={props.textFieldChangeHandler('rentalEnd')}/>
+                </div>
+                <h4>
+                    {'Koszt ' + props.rentalCost + ' zł'}
+                </h4>
+                <span>
                 <Button color="secondary"
                         variant="contained"
                         style={buttonStyle}
@@ -33,11 +35,14 @@ const addCarForm = (props) => {
                         color="primary"
                         style={buttonStyle}
                         variant="contained">
-                    Dodaj
+                    Wypożycz
                 </Button>
             </span>
-        </div>
-    );
+            </div>
+        );
+    } else {
+        return <div/>;
+    }
 }
 
-export default addCarForm;
+export default addRentalForm;
